@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +50,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ArticleListActivity.class.toString();
-   // private Toolbar mToolbar;
+    // private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
@@ -62,9 +63,9 @@ public class ArticleListActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_article_list);
+        setContentView(R.layout.activity_article_list);
 
-       // mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        // mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).getExpandedTitleGravity();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -72,32 +73,32 @@ public class ArticleListActivity extends AppCompatActivity implements
         //final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
 
-        //content transition
-        Transition exitTrans = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            exitTrans = new Explode();
-
-        getWindow().setExitTransition(exitTrans);
-
-        Transition reenterTrans = new Slide();
-            reenterTrans.setDuration(3000);
-            ((Slide)reenterTrans).setSlideEdge(Gravity.RIGHT);
-            getWindow().setReenterTransition(reenterTrans);
-        }
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-        ActivityOptions options = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            options = ActivityOptions.makeSceneTransitionAnimation(ArticleListActivity.this);
-        }
-        Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
-        startActivity(intent, options.toBundle());
-
-
-            }
-        });
+//        //content transition
+//        Transition exitTrans = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            exitTrans = new Explode();
+//
+//        getWindow().setExitTransition(exitTrans);
+//
+//        Transition reenterTrans = new Slide();
+//            reenterTrans.setDuration(3000);
+//            ((Slide)reenterTrans).setSlideEdge(Gravity.RIGHT);
+//            getWindow().setReenterTransition(reenterTrans);
+//        }
+//        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//        ActivityOptions options = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            options = ActivityOptions.makeSceneTransitionAnimation(ArticleListActivity.this);
+//        }
+//        Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
+//        startActivity(intent, options.toBundle());
+//
+//
+//            }
+//        });
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -184,8 +185,21 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+
+                    ActivityOptionsCompat options=null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        options = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this,
+                                vh.thumbnailView,getString(R.string.transition_photo) + String.valueOf(vh.getAdapterPosition()));
+                    }
+                    Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
+                    intent.putExtra(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+                    startActivity(intent, options.toBundle());
+
+//                    else {
+//                        startActivity(intent);
+//                    }
+// startActivity(new Intent(Intent.ACTION_VIEW,
+                    //ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                 }
             });
             return vh;
@@ -219,8 +233,8 @@ public class ArticleListActivity extends AppCompatActivity implements
             } else {
                 holder.subtitleView.setText(Html.fromHtml(
                         outputFormat.format(publishedDate)
-                        + "<br/>" + " by "
-                        + mCursor.getString(ArticleLoader.Query.AUTHOR)));
+                                + "<br/>" + " by "
+                                + mCursor.getString(ArticleLoader.Query.AUTHOR)));
             }
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
