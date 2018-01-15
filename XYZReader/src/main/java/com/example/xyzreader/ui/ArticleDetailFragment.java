@@ -18,7 +18,9 @@ import java.util.GregorianCalendar;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -27,6 +29,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,7 +82,7 @@ public class ArticleDetailFragment extends Fragment implements
     public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragment newInstance(long itemId, int position) {
+    public static ArticleDetailFragment newInstance(long itemId,int position) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
         arguments.putInt(ARG_ITEM_POSITION, position);
@@ -158,8 +161,9 @@ public class ArticleDetailFragment extends Fragment implements
                         .getIntent(), getString(R.string.action_share)));
             }
         });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPhotoView.setTransitionName(getString(R.string.transition_photo) + mItemPosition);
+           ViewCompat.setTransitionName(mPhotoView,getString(R.string.transition_photo) + mItemPosition);
         }
 
         bindViews();
@@ -294,8 +298,18 @@ public class ArticleDetailFragment extends Fragment implements
             mCursor.close();
             mCursor = null;
         }
-
         bindViews();
+
+        mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
+                // Start the postponed transition
+                ActivityCompat.startPostponedEnterTransition(getActivity());
+                return true;
+            }
+        });
+
     }
 
     @Override

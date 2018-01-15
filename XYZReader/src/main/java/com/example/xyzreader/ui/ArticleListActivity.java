@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -71,35 +72,6 @@ public class ArticleListActivity extends AppCompatActivity implements
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         //final View toolbarContainerView = findViewById(R.id.toolbar_container);
-
-
-//        //content transition
-//        Transition exitTrans = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            exitTrans = new Explode();
-//
-//        getWindow().setExitTransition(exitTrans);
-//
-//        Transition reenterTrans = new Slide();
-//            reenterTrans.setDuration(3000);
-//            ((Slide)reenterTrans).setSlideEdge(Gravity.RIGHT);
-//            getWindow().setReenterTransition(reenterTrans);
-//        }
-//        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//        ActivityOptions options = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            options = ActivityOptions.makeSceneTransitionAnimation(ArticleListActivity.this);
-//        }
-//        Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
-//        startActivity(intent, options.toBundle());
-//
-//
-//            }
-//        });
-
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -200,6 +172,10 @@ public class ArticleListActivity extends AppCompatActivity implements
 //                    }
 // startActivity(new Intent(Intent.ACTION_VIEW,
                     //ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+
+
+
+
                 }
             });
             return vh;

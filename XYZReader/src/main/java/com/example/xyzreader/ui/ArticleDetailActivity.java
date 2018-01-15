@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ActivityCompat;
@@ -57,19 +58,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                             View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
 
-//        //content transition
-//
-//        Transition enterTrans = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            enterTrans = new Explode();
-//        getWindow().setEnterTransition(enterTrans);
-//        Transition returnTrans = new Slide();
-//            returnTrans.setDuration(2000);
-//            ((Slide)returnTrans).setSlideEdge(Gravity.LEFT);
-//        getWindow().setReturnTransition(returnTrans);
-//            getWindow().setAllowReturnTransitionOverlap(true);
-//
-//        }
+
         ActivityCompat.postponeEnterTransition(this);
 
         setContentView(R.layout.activity_article_detail);
@@ -205,7 +194,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
-            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID), position);
+            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID),position);
         }
 
         @Override
