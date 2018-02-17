@@ -48,11 +48,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
-            android:paddingTop="@dimen/recyclerview_padding_top"
-            android:paddingLeft="@dimen/list_side_margin"
-            android:paddingRight="@dimen/list_side_margin"
-            android:paddingBottom="@dimen/recyclerview_padding_bottom"
-            android:background="@color/cardview_dark_background"/>
+            android:background="@color/cardview_light_background"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

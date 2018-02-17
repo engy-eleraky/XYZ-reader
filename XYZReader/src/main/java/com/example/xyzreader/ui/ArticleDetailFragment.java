@@ -8,19 +8,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ShareCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -29,10 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
@@ -54,7 +46,6 @@ public class ArticleDetailFragment extends Fragment implements
 
     private Cursor mCursor;
     private long mItemId;
-    private int mItemPosition;
 
     private View mRootView;
     private int mMutedColor = 0xFF333333;
@@ -82,10 +73,9 @@ public class ArticleDetailFragment extends Fragment implements
     public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragment newInstance(long itemId,int position) {
+    public static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
-        arguments.putInt(ARG_ITEM_POSITION, position);
 
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
@@ -98,7 +88,6 @@ public class ArticleDetailFragment extends Fragment implements
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
-            mItemPosition = getArguments().getInt(ARG_ITEM_POSITION);
 
         }
 
@@ -162,10 +151,6 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-           ViewCompat.setTransitionName(mPhotoView,getString(R.string.transition_photo) + mItemPosition);
-        }
-
         bindViews();
         updateStatusBar();
         return mRootView;
@@ -220,9 +205,6 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
-
-
-       // bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
@@ -299,16 +281,6 @@ public class ArticleDetailFragment extends Fragment implements
             mCursor = null;
         }
         bindViews();
-
-        mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
-                // Start the postponed transition
-                ActivityCompat.startPostponedEnterTransition(getActivity());
-                return true;
-            }
-        });
 
     }
 

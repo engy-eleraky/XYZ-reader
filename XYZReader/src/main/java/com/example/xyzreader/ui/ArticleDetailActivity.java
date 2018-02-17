@@ -4,29 +4,18 @@ import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
-
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
@@ -59,7 +48,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
 
 
-        ActivityCompat.postponeEnterTransition(this);
 
         setContentView(R.layout.activity_article_detail);
         getLoaderManager().initLoader(0, null, this);
@@ -116,18 +104,11 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
 
         if (savedInstanceState == null) {
-//            if (getIntent() != null && getIntent().getData() != null) {
-//                mStartId = ItemsContract.Items.getItemId(getIntent().getData());
-//                mSelectedItemId = mStartId;
-//            }
-            Intent intent = getIntent();
-            Bundle bundle = intent.getExtras();
-            Uri uri = (Uri)bundle.get(Intent.ACTION_VIEW);
-
-            if (getIntent() != null && uri != null) {
-                mStartId = ItemsContract.Items.getItemId(uri);
+            if (getIntent() != null && getIntent().getData() != null) {
+                mStartId = ItemsContract.Items.getItemId(getIntent().getData());
                 mSelectedItemId = mStartId;
             }
+
 
         }
     }
@@ -194,7 +175,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
-            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID),position);
+            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID));
         }
 
         @Override

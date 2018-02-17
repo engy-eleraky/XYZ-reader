@@ -10,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#fff"
+        android:background="@color/cardview_dark_background"
         >
         <com.example.xyzreader.ui.DynamicHeightNetworkImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="0dp"
 
             />
@@ -24,11 +25,11 @@
             android:textSize="@dimen/article_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_bottom"
+            android:paddingBottom="6dp"
             android:paddingRight="@dimen/padding"
             android:paddingLeft="@dimen/padding"
             android:paddingTop="@dimen/padding"
-            android:textColor="@color/ltgray"
+            android:textColor="#fff"
             style="?android:attr/textAppearanceMedium"
             android:ellipsize="end"
             android:maxLines="4" />
@@ -39,10 +40,10 @@
             style="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_bottom"
+            android:paddingBottom="6dp"
             android:paddingRight="@dimen/padding"
             android:paddingLeft="@dimen/padding"
-            android:textColor="@color/ltgray"
+            android:textColor="#fff"
             android:maxLines="2"
             android:ellipsize="end"
             />

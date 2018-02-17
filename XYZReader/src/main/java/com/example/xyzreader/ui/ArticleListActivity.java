@@ -1,6 +1,5 @@
 package com.example.xyzreader.ui;
 
-import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,33 +8,21 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,14 +52,8 @@ public class ArticleListActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
-
-        // mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).getExpandedTitleGravity();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        //final View toolbarContainerView = findViewById(R.id.toolbar_container);
-
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         getLoaderManager().initLoader(0, null, this);
@@ -158,23 +139,8 @@ public class ArticleListActivity extends AppCompatActivity implements
                 @Override
                 public void onClick(View view) {
 
-                    ActivityOptionsCompat options=null;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        options = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this,
-                                vh.thumbnailView,getString(R.string.transition_photo) + String.valueOf(vh.getAdapterPosition()));
-                    }
-                    Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
-                    intent.putExtra(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
-                    startActivity(intent, options.toBundle());
-
-//                    else {
-//                        startActivity(intent);
-//                    }
-// startActivity(new Intent(Intent.ACTION_VIEW,
-                    //ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
-
-
-
+ startActivity(new Intent(Intent.ACTION_VIEW,
+                    ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
 
                 }
             });
