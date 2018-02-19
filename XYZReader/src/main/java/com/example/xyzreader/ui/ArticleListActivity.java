@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import com.example.xyzreader.R;
@@ -40,6 +43,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     private static final String TAG = ArticleListActivity.class.toString();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private CoordinatorLayout coordinatorLayout;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -51,6 +55,9 @@ public class ArticleListActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
+        coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinator);
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Welcome to XYZ reader", Snackbar.LENGTH_LONG);
+        snackbar.show();
         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).getExpandedTitleGravity();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);

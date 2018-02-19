@@ -5,6 +5,7 @@
     <dimen name="thumbnail_margin">6dp</dimen>
     <dimen name="thumbnail_width">140dp</dimen>
     <dimen name="padding_text">16dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
 
     <!-- detail -->
     <dimen name="container">350dp</dimen>
@@ -17,7 +18,11 @@
     <dimen name="view_height">30dp</dimen>
     <dimen name="margin_top_maxLinear_layout">70dp</dimen>
     <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.3</item>
-    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="detail_appbar_height">300dp</dimen>
+
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="fab_margin1">24dp</dimen>
     <dimen name="fab_width">56dp</dimen>
     <dimen name="fab_height">56dp</dimen>
     <dimen name="image_height">120dp</dimen>
