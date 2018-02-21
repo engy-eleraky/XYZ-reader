@@ -86,15 +86,11 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.example.xyzreader.ui.MaxWidthLinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -134,7 +130,6 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-    </FrameLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
         android:background="@drawable/add_fab_background"
